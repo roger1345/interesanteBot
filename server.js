@@ -385,6 +385,7 @@ app.post('/', function(req,res){
   
   var text="";
 
+console.log(req);
 console.log("#################################################");
 console.log(req.body);
 
@@ -429,7 +430,7 @@ if(req.body.message.text.startsWith('/reset')){
 
 }
 
-  if(typeof req.body.inline_query !== 'undefined' && typeof req.body.inline_query.query !== 'undefined'){
+  if(typeof req.body !== 'undefined' && typeof req.body.inline_query !== 'undefined' && typeof req.body.inline_query.query !== 'undefined'){
 
   console.log("Inline Query: "+req.body.inline_query.query);
   if(req.body.inline_query.query.length==0){

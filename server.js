@@ -385,7 +385,6 @@ app.post('/', function(req,res){
   
   var text="";
 
-console.log(req);
 console.log("#################################################");
 console.log(req.body);
 

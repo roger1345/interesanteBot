@@ -308,7 +308,7 @@ var fnSendPhoto= function(req,res,urlPhoto){
 var fnInlineBlank= function(req,res,query_id){
     var data = {
         'inline_query_id' : query_id,
-        'results': JSON.stringify([{'type':'photo','id':'123123','photo_url':'http://interesante-bot-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/este.jpg','thumb_url':'http://interesante-bot-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/este.jpg'}])
+        'results': JSON.stringify([{'type':'photo','id':'123123','photo_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/este.jpg','thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/este.jpg'}])
     };
 
     var request = require('request');
@@ -333,33 +333,33 @@ var fnInlineAnswer= function(req,res,query_id){
                       [
                         {'type':'photo',
                           'id':'456456',
-                          'photo_url':'http://interesante-bot-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/saxiwesly.jpg',
-                          'thumb_url':'http://interesante-bot-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/saxiwesly.jpg'
+                          'photo_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/saxiwesly.jpg',
+                          'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/saxiwesly.jpg'
                         },
                         {'type':'photo',
                           'id':'123123',
-                          'photo_url':'http://interesante-bot-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/este.jpg',
-                          'thumb_url':'http://interesante-bot-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/este.jpg'
+                          'photo_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/este.jpg',
+                          'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/este.jpg'
                         },
                         {'type':'photo',
                           'id':'789789',
-                          'photo_url':'http://interesante-bot-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/callate.jpg',
-                          'thumb_url':'http://interesante-bot-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/callate.jpg'
+                          'photo_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/callate.jpg',
+                          'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/callate.jpg'
                         },
                         {'type':'photo',
                           'id':'978908',
-                          'photo_url':'http://interesante-bot-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/elDeArmando.jpg',
-                          'thumb_url':'http://interesante-bot-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/elDeArmando.jpg'
+                          'photo_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/elDeArmando.jpg',
+                          'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/elDeArmando.jpg'
                         },
                         {'type':'gif',
                           'id':'001202',
-                          'gif_url':'http://interesante-bot-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/homerespermatozoide.gif',
-                          'thumb_url':'http://interesante-bot-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/homerespermatozoide.gif'
+                          'gif_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/homerespermatozoide.gif',
+                          'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/homerespermatozoide.gif'
                         },
                         {'type':'gif',
                           'id':'341202',
-                          'gif_url':'http://interesante-bot-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/pagaron.gif',
-                          'thumb_url':'http://interesante-bot-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/pagaron.gif'
+                          'gif_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/pagaron.gif',
+                          'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/pagaron.gif'
                         }
                       ]
                       )
@@ -388,7 +388,7 @@ app.post('/', function(req,res){
 console.log("#################################################");
 console.log(req.body);
 
-if (typeof req.body.message !== 'undefined' && typeof req.body.message.text !== 'undefined' && req.body.message.text )
+if (typeof req.body !== 'undefined' && typeof req.body.message !== 'undefined' && typeof req.body.message.text !== 'undefined' && req.body.message.text )
 {
 
 if(req.body.message.text.startsWith('/interesante')){

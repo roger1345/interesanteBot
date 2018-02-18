@@ -385,6 +385,8 @@ app.post('/', function(req,res){
   
   var text="";
 
+console.log(req);
+console.log("#################################################");
 console.log(req.body);
 
 if (typeof req.body.message !== 'undefined' && typeof req.body.message.text !== 'undefined' && req.body.message.text )

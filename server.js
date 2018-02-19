@@ -258,39 +258,34 @@ var fnResetResume= function(req,res){
 };
 
 var fnTopic= function(req,res,text){
-    
-    mongoose.connect('mongodb://bot:Qpalwosk10@172.30.137.181:27017/interesanteDB?authSource=admin');
-    var db = mongoose.connection;
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.once('open', function() {
-      console.log("Connected to mongo db");
-    });
 
-    var item = new Topic({ chatId: req.body.message.chat.id, topic: text, username:  req.body.message.from.username });
-
-    item.save(function (err, fluffy) {
-      if (err) return console.error(err);
+    // try to initialize the db on every request if it's not already
+    // initialized.
+    if (!db) {
+      initDb(function(err){});
+    }
+    if (db) {
+      var col = db.collection('topic');
+      // Create a document with request IP and current time of request
+      col.insert({chat_id: req.body.message.chat.id, topic: text, username:  req.body.message.from.username});
       console.log("Item Saved");
-    });
+      var data = {
+          'chat_id' : req.body.message.chat.id,
+          'text': 'Tema agregado!'
+      };
 
-    mongoose.connection.close()
-
-    var data = {
-        'chat_id' : req.body.message.chat.id,
-        'text': 'Tema agregado!'
-    };
-
-    var request = require('request');
-    var options = {
-      uri: 'https://api.telegram.org/bot180447956:AAF50f54FuAWNrs077k7iPH6n1ngkLYjYrw/sendMessage',
-      method: 'POST',
-      json: data
-    };
-    request(options, function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        console.log(body);
-      }
-    });
+      var request = require('request');
+      var options = {
+        uri: 'https://api.telegram.org/bot180447956:AAF50f54FuAWNrs077k7iPH6n1ngkLYjYrw/sendMessage',
+        method: 'POST',
+        json: data
+      };
+      request(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          console.log(body);
+        }
+      });
+    }
 };
 
 var fnSendPhoto= function(req,res,urlPhoto){

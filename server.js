@@ -163,7 +163,7 @@ var fnText= function(req,res,text){
 
 var fnResume= function(req,res){
     
-    mongoose.connect('mongodb://bot:Qpalwosk10@172.30.137.181:27017/interesanteDB');
+    mongoose.connect('mongodb://bot:Qpalwosk10@172.30.137.181:27017/interesanteDB?authSource=admin');
     var db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function() {
@@ -212,7 +212,7 @@ var fnResume= function(req,res){
 
 var fnResetResume= function(req,res){
     
-    mongoose.connect('mongodb://bot:Qpalwosk10@172.30.137.181:27017/interesanteDB');
+    mongoose.connect('mongodb://bot:Qpalwosk10@172.30.137.181:27017/interesanteDB?authSource=admin');
     var db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function() {
@@ -259,7 +259,7 @@ var fnResetResume= function(req,res){
 
 var fnTopic= function(req,res,text){
     
-    mongoose.connect('mongodb://bot:Qpalwosk10@172.30.137.181:27017/interesanteDB');
+    mongoose.connect('mongodb://bot:Qpalwosk10@172.30.137.181:27017/interesanteDB?authSource=admin');
     var db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function() {

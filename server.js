@@ -4,6 +4,7 @@ var express = require('express'),
     morgan  = require('morgan'),
     fs      = require('fs'),
     path    = require('path'),
+    http = require('http'),
     bodyParser = require('body-parser');
 
 

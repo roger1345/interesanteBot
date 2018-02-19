@@ -163,97 +163,84 @@ var fnText= function(req,res,text){
 
 var fnResume= function(req,res){
     
-    mongoose.connect('mongodb://bot:Qpalwosk10@172.30.137.181:27017/interesanteDB?authSource=admin');
-    var db = mongoose.connection;
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.once('open', function() {
-      console.log("Connected to mongo db");
-    });
+    // try to initialize the db on every request if it's not already
+    // initialized.
+    if (!db) {
+      initDb(function(err){});
+    }
+    if (db) {
+      var col = db.collection('topic');
+      // Create a document with request IP and current time of request
+      col.find({chat_id: req.body.message.chat.id}).toArray(function(err, items) {
+        var text="Temas:\n";
 
-    var text="Temas:\n";
-
-    Topic.find({ chatId: req.body.message.chat.id },function (err, items) {
-      if (err) {
-        console.log(err);
-      }else{
-        var count=1;
-        for(var item of items) {
-           text+=count+'. '+item.topic+" - "+item.username+"\n";
-           count+=1;
-        }
-
-        if(count==1){
-          text="No estamos hablando de una monda careverga!.";
-        }
-
-        var data = {
-            'chat_id' : req.body.message.chat.id,
-            'text': text
-        };
-
-        var request = require('request');
-        var options = {
-          uri: 'https://api.telegram.org/bot180447956:AAF50f54FuAWNrs077k7iPH6n1ngkLYjYrw/sendMessage',
-          method: 'POST',
-          json: data
-        };
-        request(options, function (error, response, body) {
-          if (!error && response.statusCode == 200) {
-            console.log(body);
+        if (err) {
+          console.log(err);
+        }else{
+          var count=1;
+          for(var item of items) {
+             text+=count+'. '+item.topic+" - "+item.username+"\n";
+             count+=1;
           }
-        });
-
-      }
-    });
-
-    mongoose.connection.close()
+  
+          if(count==1){
+            text="No estamos hablando de una monda careverga!.";
+          }
+  
+          var data = {
+              'chat_id' : req.body.message.chat.id,
+              'text': text
+          };
+  
+          var request = require('request');
+          var options = {
+            uri: 'https://api.telegram.org/bot180447956:AAF50f54FuAWNrs077k7iPH6n1ngkLYjYrw/sendMessage',
+            method: 'POST',
+            json: data
+          };
+          request(options, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+              console.log(body);
+            }
+          });
+  
+        }
+      });
+    }    
 
 };
 
 var fnResetResume= function(req,res){
     
-    mongoose.connect('mongodb://bot:Qpalwosk10@172.30.137.181:27017/interesanteDB?authSource=admin');
-    var db = mongoose.connection;
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.once('open', function() {
-      console.log("Connected to mongo db");
-    });
+    // try to initialize the db on every request if it's not already
+    // initialized.
+    if (!db) {
+      initDb(function(err){});
+    }
+    if (db) {
+      var col = db.collection('topic');
+      // Create a document with request IP and current time of request
+      col.remove({chat_id: req.body.message.chat.id});
+      
+      var text="Se borro toda la info, si fue por error, te digo que LA CAGASTE IMBECIL.";
 
-    var text="";
+      var data = {
+          'chat_id' : req.body.message.chat.id,
+          'text': text
+      };
 
-    Topic.remove({ chatId: req.body.message.chat.id },function (err, items) {
-      if (err) {
-        console.log(err);
-      }else{
-        console.log("items borrados: "+items.result.n);
-        console.log(items);
-        if(items.result.n==0){
-          text="No hay nada que borrar IDIOTA!. Presta mas atencion al chat."
-        }else{
-          text="Se borro toda la info, si fue por error, te digo que LA CAGASTE IMBECIL.";
+      var request = require('request');
+      var options = {
+        uri: 'https://api.telegram.org/bot180447956:AAF50f54FuAWNrs077k7iPH6n1ngkLYjYrw/sendMessage',
+        method: 'POST',
+        json: data
+      };
+      request(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          console.log(body);
         }
-
-        var data = {
-            'chat_id' : req.body.message.chat.id,
-            'text': text
-        };
-
-        var request = require('request');
-        var options = {
-          uri: 'https://api.telegram.org/bot180447956:AAF50f54FuAWNrs077k7iPH6n1ngkLYjYrw/sendMessage',
-          method: 'POST',
-          json: data
-        };
-        request(options, function (error, response, body) {
-          if (!error && response.statusCode == 200) {
-            console.log(body);
-          }
-        });
-
-      }
-    });
-
-    mongoose.connection.close()
+      });
+    }
 
 };
 

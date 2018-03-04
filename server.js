@@ -5,8 +5,12 @@ var express = require('express'),
     fs      = require('fs'),
     path    = require('path'),
     http = require('http'),
-    bodyParser = require('body-parser');
+    const Telegraf = require('telegraf'),
+    bodyParser = require('body-parser'),
+    Telegraf = require('telegraf');
 
+const Extra = require('telegraf/extra')
+const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN)
 
 var mongoose = require('mongoose');
 
@@ -369,75 +373,15 @@ var fnInlineAnswer= function(req,res,query_id){
     });
 };
 
-app.post('/', function(req,res){
-  
-  var text="";
-
-console.log(req);
-console.log("#################################################");
-console.log(req.body);
-
-if (typeof req.body !== 'undefined' && typeof req.body.message !== 'undefined' && typeof req.body.message.text !== 'undefined' && req.body.message.text )
-{
-
-if(req.body.message.text.startsWith('/interesante')){
-    text = 'Que interesante lo que me cuentas '+req.body.message.text.substr('/interesante'.length+1,req.body.message.text.length)+", ojala te lo hubiera preguntado.";
-    fnText(req,res,text);
-}
-if(req.body.message.text.startsWith('/eso')){
-    text = 'Eso viejo '+req.body.message.text.substr('/eso'.length+1,req.body.message.text.length)+", eso.";
-    fnText(req,res,text);
-}
-if(req.body.message.text.startsWith('/loanotare')){
-    text = 'Lo anotare en mi libreta de cosas que me valen monda!';
-    fnText(req,res,text);
-}
-if(req.body.message.text.indexOf('/este') > -1 || req.body.message.text.indexOf('/esta') > -1){
-    var urlPhoto='./static/este.jpg';
-    fnSendPhoto(req,res,urlPhoto);
-}
-if(req.body.message.text.startsWith('/help@InteresanteBot')){
-    text = '/help - Muestra los comandos disponibles.\n/interesante - Muestra mensaje, interesante lo que me cuentas.\n/eso - Muestra mensaje, eso viejo.\n/saxi - Muestra WeslyFace.\n/este - Muestra meme.';
-    fnText(req,res,text);
-}
-if(req.body.message.text.startsWith('/topic')){
-    text = req.body.message.text.substr('/topic'.length+1,req.body.message.text.length);
-    console.log(text)
-    fnTopic(req,res,text);
-}
-if(req.body.message.text.startsWith('/resumen')){
-    fnResume(req,res);
-}
-if(req.body.message.text.startsWith('/reset')){
-  if(req.body.message.from.username==='Roger1345' || req.body.message.from.username==='handzath' || req.body.message.from.username==='miguelangel90'){
-    fnResetResume(req,res);
-  }else{
-    fnText(req,res,"Eres esteril, no puedes borrar nada, malparido.");
-  }
-}
-
-}
-
-  if(typeof req.body !== 'undefined' && typeof req.body.inline_query !== 'undefined' && typeof req.body.inline_query.query !== 'undefined'){
-
-  console.log("Inline Query: "+req.body.inline_query.query);
-  if(req.body.inline_query.query.length==0){
-    console.log("query empty, "+req.body.inline_query.id);
-    fnInlineAnswer(req,res,req.body.inline_query.id);
-  }else{
-    console.log("query sent");
-  }
-
-  }
-
-  res.status(200).end();
+bot.command('interesante', (ctx) => {
+  getTrackingInfo(ctx).then(function(result) {
+    bot.telegram.sendMessage(ctx.update.message.chat.id, result, Extra.markdown());
+    }, function(err) {
+      console.log(err);
+    });
 });
-
-// error handling 
-app.use(function(err, req, res, next){
-  console.error(err.stack);
-  res.status(500).send('Something bad happened!');
-});
+bot.on('text', ({ replyWithHTML }) => replyWithHTML('Esto es no un chat para hablar, escribe un comando careverga.'))
+app.use(bot.webhookCallback('/'))
 
 initDb(function(err){
   console.log('Error connecting to Mongo. Message:\n'+err);

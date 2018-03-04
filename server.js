@@ -142,11 +142,7 @@ bot.command('help', (ctx) => {
 
 bot.command('titulo', (ctx) => {
   var text= ctx.update.message.text.substr('/titulo'.length+1,ctx.update.message.text.length);
-  try{
-    bot.telegram.setChatTitle(ctx.update.message.chat.id, text);
-  }catch(e){
-    bot.telegram.sendMessage(ctx.update.message.chat.id, "Error, verifica que el bot este como admin *imbecil*", Extra.markdown());
-  }
+  bot.telegram.setChatTitle(ctx.update.message.chat.id, text);
 });
 
 bot.command('changePhoto', (ctx) => {
@@ -252,10 +248,14 @@ bot.on('inline_query', (ctx) => {
                   ];
   console.log(ctx.inlineQuery.id);
   console.log(result);
-  return ctx.answerInlineQuery(ctx.inlineQuery.id,result)
+  bot.telegram.answerInlineQuery(ctx.inlineQuery.id,result)
 })
 
 app.use(bot.webhookCallback('/'))
+bot.catch((err) => {
+  console.log('Ooops', err)
+  bot.telegram.sendMessage(ctx.update.message.chat.id, "Error, verifica que el bot este como admin *imbecil*", Extra.markdown());
+})
 
 initDb(function(err){
   console.log('Error connecting to Mongo. Message:\n'+err);

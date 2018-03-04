@@ -13,6 +13,7 @@ const Extra = require('telegraf/extra')
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN)
 
 var mongoose = require('mongoose');
+var changingPhoto=false;
 
 var topicSchema = mongoose.Schema({
     chatId: String,
@@ -147,8 +148,8 @@ bot.command('titulo', (ctx) => {
 
 bot.command('changePhoto', (ctx) => {
   console.log(ctx.update)
-  //ctx.setChatPhoto(ctx.update.message.chat.id, ctx.update.message);
-  return ctx.replyWithMarkdown("Titulo cambiado", Extra.markdown());
+  changingPhoto=true;
+  return ctx.replyWithMarkdown("Please sent a photo", Extra.markdown());
 });
 
 bot.command('tema', (ctx) => {
@@ -206,8 +207,10 @@ bot.command('reset', (ctx) => {
   }
 });
 bot.on('photo', (ctx) => {
-  console.log(ctx);
-  ctx.replyWithHTML('Hola, usa el comando <b>/cosultar</b> para ver el estado de un envio.')
+  console.log(ctx.update.message.photo);
+  if(changingPhoto){
+    bot.telegram.setChatPhoto(ctx.update.message.chat.id, ctx.update.message.photo);
+  }
 });
 
 bot.on('inline_query', (ctx) => {

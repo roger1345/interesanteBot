@@ -21,11 +21,7 @@ var topicSchema = mongoose.Schema({
 }); 
 
 var Topic = mongoose.model('Topic', topicSchema);
-    
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
-})); 
+
 
 Object.assign=require('object-assign')
 
@@ -79,27 +75,6 @@ var initDb = function(callback) {
     console.log('Connected to MongoDB at: %s', mongoURL);
   });
 };
-
-app.get('/', function (req, res) {
-  // try to initialize the db on every request if it's not already
-  // initialized.
-  if (!db) {
-    initDb(function(err){});
-  }
-  if (db) {
-    var col = db.collection('counts');
-    // Create a document with request IP and current time of request
-    col.insert({ip: req.ip, date: Date.now()});
-    col.count(function(err, count){
-      if (err) {
-        console.log('Error running count. Message:\n'+err);
-      }
-      res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails });
-    });
-  } else {
-    res.render('index.html', { pageCountMessage : null});
-  }
-});
 
 app.get('/pagecount', function (req, res) {
   // try to initialize the db on every request if it's not already
@@ -374,11 +349,7 @@ var fnInlineAnswer= function(req,res,query_id){
 };
 
 bot.command('interesante', (ctx) => {
-  getTrackingInfo(ctx).then(function(result) {
-    bot.telegram.sendMessage(ctx.update.message.chat.id, result, Extra.markdown());
-    }, function(err) {
-      console.log(err);
-    });
+  return ctx.replyWithMarkdown("Que interesante lo que me cuentas **"+ctx.update.message.text.substr('/interesante'.length+1,req.body.message.text.length)+"**, ojala te lo hubiera preguntado.");
 });
 bot.on('text', ({ replyWithHTML }) => replyWithHTML('Esto es no un chat para hablar, escribe un comando careverga.'))
 app.use(bot.webhookCallback('/'))

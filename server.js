@@ -221,6 +221,18 @@ bot.command('help', (ctx) => {
   return ctx.replyWithMarkdown("*/help* - Muestra los comandos disponibles.\n*/interesante* - Muestra mensaje, interesante lo que me cuentas.\n*/eso* - Muestra mensaje, eso viejo.\n*/este* - Muestra meme.\n*/esta* - Muestra meme.", Extra.markdown());
 });
 
+bot.command('titulo', (ctx) => {
+  var text= ctx.update.message.text.substr('/titulo'.length+1,ctx.update.message.text.length);
+  ctx.setChatTitle(ctx.update.message.chat.id, );
+  return ctx.replyWithMarkdown("Titulo cambiado", Extra.markdown());
+});
+
+bot.command('changePhoto', (ctx) => {
+  console.log(ctx.update)
+  //ctx.setChatPhoto(ctx.update.message.chat.id, ctx.update.message);
+  return ctx.replyWithMarkdown("Titulo cambiado", Extra.markdown());
+});
+
 bot.command('tema', (ctx) => {
   if (!db) {
     initDb(function(err){});

@@ -5,7 +5,7 @@ var express = require('express'),
     fs      = require('fs'),
     path    = require('path'),
     http = require('http'),
-    const Telegraf = require('telegraf'),
+    Telegraf = require('telegraf'),
     bodyParser = require('body-parser'),
     Telegraf = require('telegraf');
 

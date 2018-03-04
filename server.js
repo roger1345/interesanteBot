@@ -142,7 +142,7 @@ bot.command('help', (ctx) => {
 bot.command('titulo', (ctx) => {
   var text= ctx.update.message.text.substr('/titulo'.length+1,ctx.update.message.text.length);
   console.log(text);
-  return ctx.setChatTitle(ctx.update.message.chat.id, text);
+  bot.telegram.setChatTitle(ctx.update.message.chat.id, text);
 });
 
 bot.command('changePhoto', (ctx) => {
@@ -205,8 +205,9 @@ bot.command('reset', (ctx) => {
     return ctx.replyWithMarkdown("Se borro toda la info, si fue por error, te digo que *LA CAGASTE IMBECIL.*", Extra.markdown());
   }
 });
-bot.on('photo', ({ replyWithHTML }) => {
-  replyWithHTML('Hola, usa el comando <b>/cosultar</b> para ver el estado de un envio.')
+bot.on('photo', (ctx) => {
+  console.log(ctx);
+  ctx.replyWithHTML('Hola, usa el comando <b>/cosultar</b> para ver el estado de un envio.')
 });
 
 bot.on('inline_query', (ctx) => {

@@ -249,15 +249,16 @@ bot.command('resumen', (ctx) => {
       }else{
         var count=1;
         for(var item of items) {
-           text+=count+'. '+item.topic+" - "+item.username+"\n";
+           text+=count+'. '+item.topic+" - *"+item.username+"*\n";
            count+=1;
         }
 
         if(count==1){
-          text="No estamos hablando de una monda careverga!.";
+          text="No estamos hablando de una monda *careverga!*.";
         }
       }
     });
+    return ctx.replyWithMarkdown(text, Extra.markdown());
   }
 });
 

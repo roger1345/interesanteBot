@@ -115,88 +115,6 @@ app.get('/static/pagaron.gif', function (req, res) {
     res.end(img, 'binary');
 });
 
-var fnInfo = function(req,res){
-    res.setHeader('Content-Type', 'application/json');
-    res.setHeader('Cache-Control', 'no-cache, no-store');
-    res.end(JSON.stringify(sysInfo[url.slice(6)]()));
-};
-
-var fnInlineBlank= function(req,res,query_id){
-    var data = {
-        'inline_query_id' : query_id,
-        'results': JSON.stringify([{'type':'photo','id':'123123','photo_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/este.jpg','thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/este.jpg'}])
-    };
-
-    var request = require('request');
-    var options = {
-      uri: 'https://api.telegram.org/bot180447956:AAF50f54FuAWNrs077k7iPH6n1ngkLYjYrw/answerInlineQuery',
-      method: 'POST',
-      json: data
-    };
-    
-    request(options, function (error, response, body) {
-      console.log("body");
-      console.log(body);
-      console.log("error");
-      console.log(error);
-    });
-};
-
-var fnInlineAnswer= function(req,res,query_id){
-    var data = {
-        'inline_query_id' : query_id,
-        'results': JSON.stringify(
-                      [
-                        {'type':'photo',
-                          'id':'456456',
-                          'photo_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/saxiwesly.jpg',
-                          'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/saxiwesly.jpg'
-                        },
-                        {'type':'photo',
-                          'id':'123123',
-                          'photo_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/este.jpg',
-                          'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/este.jpg'
-                        },
-                        {'type':'photo',
-                          'id':'789789',
-                          'photo_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/callate.jpg',
-                          'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/callate.jpg'
-                        },
-                        {'type':'photo',
-                          'id':'978908',
-                          'photo_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/elDeArmando.jpg',
-                          'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/elDeArmando.jpg'
-                        },
-                        {'type':'gif',
-                          'id':'001202',
-                          'gif_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/homerespermatozoide.gif',
-                          'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/homerespermatozoide.gif'
-                        },
-                        {'type':'gif',
-                          'id':'341202',
-                          'gif_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/pagaron.gif',
-                          'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/pagaron.gif'
-                        }
-                      ]
-                      )
-    };
-
-    var request = require('request');
-    var options = {
-      uri: 'https://api.telegram.org/bot180447956:AAF50f54FuAWNrs077k7iPH6n1ngkLYjYrw/answerInlineQuery',
-      method: 'POST',
-      json: data
-    };
-    console.log("roger");
-    console.log(options);
-    request(options, function (error, response, body) {
-      console.log("body");
-      console.log(body);
-      console.log("error");
-      console.log(error);
-    });
-};
-
 bot.command('interesante', (ctx) => {
   return ctx.replyWithMarkdown("Que interesante lo que me cuentas *"+ctx.update.message.text.substr('/interesante'.length+1,ctx.update.message.text.length)+"*, ojala te lo hubiera preguntado.", Extra.markdown());
 });
@@ -223,8 +141,8 @@ bot.command('help', (ctx) => {
 
 bot.command('titulo', (ctx) => {
   var text= ctx.update.message.text.substr('/titulo'.length+1,ctx.update.message.text.length);
-  ctx.setChatTitle(ctx.update.message.chat.id, text);
-  return ctx.replyWithMarkdown("Titulo cambiado", Extra.markdown());
+  console.log(text);
+  return ctx.setChatTitle(ctx.update.message.chat.id, text);
 });
 
 bot.command('changePhoto', (ctx) => {
@@ -287,7 +205,50 @@ bot.command('reset', (ctx) => {
     return ctx.replyWithMarkdown("Se borro toda la info, si fue por error, te digo que *LA CAGASTE IMBECIL.*", Extra.markdown());
   }
 });
+bot.on('photo', ({ replyWithHTML }) => {
+  replyWithHTML('Hola, usa el comando <b>/cosultar</b> para ver el estado de un envio.')
+});
 
+bot.on('inline_query', (ctx) => {
+  var result = {
+    'inline_query_id' : ctx.inlineQuery.id,
+    'results': JSON.stringify(
+                  [
+                    {'type':'photo',
+                      'id':'456456',
+                      'photo_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/saxiwesly.jpg',
+                      'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/saxiwesly.jpg'
+                    },
+                    {'type':'photo',
+                      'id':'123123',
+                      'photo_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/este.jpg',
+                      'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/este.jpg'
+                    },
+                    {'type':'photo',
+                      'id':'789789',
+                      'photo_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/callate.jpg',
+                      'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/callate.jpg'
+                    },
+                    {'type':'photo',
+                      'id':'978908',
+                      'photo_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/elDeArmando.jpg',
+                      'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/elDeArmando.jpg'
+                    },
+                    {'type':'gif',
+                      'id':'001202',
+                      'gif_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/homerespermatozoide.gif',
+                      'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/homerespermatozoide.gif'
+                    },
+                    {'type':'gif',
+                      'id':'341202',
+                      'gif_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/pagaron.gif',
+                      'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/pagaron.gif'
+                    }
+                  ]
+                  )
+  };
+  ctx.answerInlineQuery(result)
+})
 
 app.use(bot.webhookCallback('/'))
 

@@ -218,10 +218,7 @@ bot.on('photo', (ctx) => {
 });
 
 bot.on('inline_query', (ctx) => {
-  var result = {
-    'inline_query_id' : ctx.inlineQuery.id,
-    'results': JSON.stringify(
-                  [
+  var result = [
                     {'type':'photo',
                       'id':'456456',
                       'photo_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/saxiwesly.jpg',
@@ -252,10 +249,10 @@ bot.on('inline_query', (ctx) => {
                       'gif_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/pagaron.gif',
                       'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/pagaron.gif'
                     }
-                  ]
-                  )
-  };
-  ctx.answerInlineQuery(result)
+                  ];
+  console.log(ctx.inlineQuery.id);
+  console.log(result);
+  return ctx.answerInlineQuery(ctx.inlineQuery.id,result)
 })
 
 app.use(bot.webhookCallback('/'))

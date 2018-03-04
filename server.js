@@ -142,8 +142,11 @@ bot.command('help', (ctx) => {
 
 bot.command('titulo', (ctx) => {
   var text= ctx.update.message.text.substr('/titulo'.length+1,ctx.update.message.text.length);
-  console.log(text);
-  bot.telegram.setChatTitle(ctx.update.message.chat.id, text).catch(bot.telegram.sendMessage(ctx.update.message.chat.id, "Error, verifica que el bot este como admin *imbecil*", Extra.markdown()));
+  try{
+    bot.telegram.setChatTitle(ctx.update.message.chat.id, text);
+  }catch(e){
+    bot.telegram.sendMessage(ctx.update.message.chat.id, "Error, verifica que el bot este como admin *imbecil*", Extra.markdown());
+  }
 });
 
 bot.command('changePhoto', (ctx) => {
@@ -210,7 +213,7 @@ bot.on('photo', (ctx) => {
   console.log(ctx.update.message.photo);
   console.log(changingPhoto);
   if(changingPhoto){
-    bot.telegram.setChatPhoto(ctx.update.message.chat.id, ctx.update.message.photo[0].file_id);
+    bot.telegram.setChatPhoto(ctx.update.message.chat.id, bot.telegram.getFile(ctx.update.message.photo[0].file_id));
   }
 });
 

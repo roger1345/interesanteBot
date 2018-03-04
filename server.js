@@ -121,157 +121,6 @@ var fnInfo = function(req,res){
     res.end(JSON.stringify(sysInfo[url.slice(6)]()));
 };
 
-var fnText= function(req,res,text){
-    var data = {
-        'chat_id' : req.body.message.chat.id,
-        'text': text
-    };
-
-    var request = require('request');
-    var options = {
-      uri: 'https://api.telegram.org/bot180447956:AAF50f54FuAWNrs077k7iPH6n1ngkLYjYrw/sendMessage',
-      method: 'POST',
-      json: data
-    };
-    request(options, function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        console.log(body);
-      }
-    });
-};
-
-var fnResume= function(req,res){
-    
-    // try to initialize the db on every request if it's not already
-    // initialized.
-    if (!db) {
-      initDb(function(err){});
-    }
-    if (db) {
-      var col = db.collection('topic');
-      // Create a document with request IP and current time of request
-      col.find({chat_id: req.body.message.chat.id}).toArray(function(err, items) {
-        var text="Temas:\n";
-
-        if (err) {
-          console.log(err);
-        }else{
-          var count=1;
-          for(var item of items) {
-             text+=count+'. '+item.topic+" - "+item.username+"\n";
-             count+=1;
-          }
-  
-          if(count==1){
-            text="No estamos hablando de una monda careverga!.";
-          }
-  
-          var data = {
-              'chat_id' : req.body.message.chat.id,
-              'text': text
-          };
-  
-          var request = require('request');
-          var options = {
-            uri: 'https://api.telegram.org/bot180447956:AAF50f54FuAWNrs077k7iPH6n1ngkLYjYrw/sendMessage',
-            method: 'POST',
-            json: data
-          };
-          request(options, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-              console.log(body);
-            }
-          });
-  
-        }
-      });
-    }    
-
-};
-
-var fnResetResume= function(req,res){
-    
-    // try to initialize the db on every request if it's not already
-    // initialized.
-    if (!db) {
-      initDb(function(err){});
-    }
-    if (db) {
-      var col = db.collection('topic');
-      // Create a document with request IP and current time of request
-      col.remove({chat_id: req.body.message.chat.id});
-      
-      var text="Se borro toda la info, si fue por error, te digo que LA CAGASTE IMBECIL.";
-
-      var data = {
-          'chat_id' : req.body.message.chat.id,
-          'text': text
-      };
-
-      var request = require('request');
-      var options = {
-        uri: 'https://api.telegram.org/bot180447956:AAF50f54FuAWNrs077k7iPH6n1ngkLYjYrw/sendMessage',
-        method: 'POST',
-        json: data
-      };
-      request(options, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-          console.log(body);
-        }
-      });
-    }
-
-};
-
-var fnTopic= function(req,res,text){
-
-    // try to initialize the db on every request if it's not already
-    // initialized.
-    if (!db) {
-      initDb(function(err){});
-    }
-    if (db) {
-      var col = db.collection('topic');
-      // Create a document with request IP and current time of request
-      col.insert({chat_id: req.body.message.chat.id, topic: text, username:  req.body.message.from.username});
-      console.log("Item Saved");
-      var data = {
-          'chat_id' : req.body.message.chat.id,
-          'text': 'Tema agregado!'
-      };
-
-      var request = require('request');
-      var options = {
-        uri: 'https://api.telegram.org/bot180447956:AAF50f54FuAWNrs077k7iPH6n1ngkLYjYrw/sendMessage',
-        method: 'POST',
-        json: data
-      };
-      request(options, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-          console.log(body);
-        }
-      });
-    }
-};
-
-var fnSendPhoto= function(req,res,urlPhoto){
-
-    var request = require('request');
-
-    var formData = {
-      'chat_id': req.body.message.chat.id,
-      'photo': fs.createReadStream(urlPhoto)
-    };
-
-    request.post({url:'https://api.telegram.org/bot180447956:AAF50f54FuAWNrs077k7iPH6n1ngkLYjYrw/sendPhoto', formData: formData}, function(err, httpResponse, body) {
-      if (err) {
-        return console.error('upload failed:', err);
-      }
-      console.log('Upload successful!  Server responded with:', body);
-    });
-
-};
-
 var fnInlineBlank= function(req,res,query_id){
     var data = {
         'inline_query_id' : query_id,
@@ -369,7 +218,60 @@ bot.command('esta', (ctx) => {
 });
 
 bot.command('help', (ctx) => {
-  return ctx.replyWithMarkdown("*/help* - Muestra los comandos disponibles.\n*/interesante* - Muestra mensaje, interesante lo que me cuentas.\n*/eso* - Muestra mensaje, eso viejo.\n*/saxi* - Muestra WeslyFace.\n*/este* - Muestra meme.\n*/esta* - Muestra meme.", Extra.markdown());
+  return ctx.replyWithMarkdown("*/help* - Muestra los comandos disponibles.\n*/interesante* - Muestra mensaje, interesante lo que me cuentas.\n*/eso* - Muestra mensaje, eso viejo.\n*/este* - Muestra meme.\n*/esta* - Muestra meme.", Extra.markdown());
+});
+
+bot.command('tema', (ctx) => {
+  if (!db) {
+    initDb(function(err){});
+  }
+  if (db) {
+    var col = db.collection('topic');
+    // Create a document with request IP and current time of request
+    col.insert({chat_id: ctx.update.message.chat.id, topic: text, username:  ctx.update.message.from.username});
+    console.log("Item Saved");
+    return ctx.replyWithMarkdown("Tema agregado *estupido!*", Extra.markdown());
+  }
+});
+
+bot.command('resumen', (ctx) => {
+  if (!db) {
+    initDb(function(err){});
+  }
+  if (db) {
+    var col = db.collection('topic');
+    // Create a document with request IP and current time of request
+    col.find({chat_id: ctx.update.message.chat.id}).toArray(function(err, items) {
+      var text="Temas:\n";
+
+      if (err) {
+        console.log(err);
+      }else{
+        var count=1;
+        for(var item of items) {
+           text+=count+'. '+item.topic+" - "+item.username+"\n";
+           count+=1;
+        }
+
+        if(count==1){
+          text="No estamos hablando de una monda careverga!.";
+        }
+      }
+    });
+  }
+});
+
+bot.command('reset', (ctx) => {
+  if (!db) {
+    initDb(function(err){});
+  }
+  if (db) {
+    var col = db.collection('topic');
+    // Create a document with request IP and current time of request
+    col.remove({chat_id: ctx.update.message.chat.id});
+    
+    return ctx.replyWithMarkdown("Se borro toda la info, si fue por error, te digo que *LA CAGASTE IMBECIL.*", Extra.markdown());
+  }
 });
 
 

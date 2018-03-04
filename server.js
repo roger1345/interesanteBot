@@ -227,7 +227,7 @@ bot.command('tema', (ctx) => {
   }
   if (db) {
     var col = db.collection('topic');
-    // Create a document with request IP and current time of request
+    var text= ctx.update.message.text.substr('/tema'.length+1,ctx.update.message.text.length);
     col.insert({chat_id: ctx.update.message.chat.id, topic: text, username:  ctx.update.message.from.username});
     console.log("Item Saved");
     return ctx.replyWithMarkdown("Tema agregado *estupido!*", Extra.markdown());

@@ -349,7 +349,27 @@ var fnInlineAnswer= function(req,res,query_id){
 };
 
 bot.command('interesante', (ctx) => {
-  return ctx.replyWithMarkdown("Que interesante lo que me cuentas **"+ctx.update.message.text.substr('/interesante'.length+1,ctx.update.message.text.length)+"**, ojala te lo hubiera preguntado.");
+  return ctx.replyWithMarkdown("Que interesante lo que me cuentas **"+ctx.update.message.text.substr('/interesante'.length+1,ctx.update.message.text.length)+"**, ojala te lo hubiera preguntado.", Extra.markdown());
+});
+
+bot.command('eso', (ctx) => {
+  return ctx.replyWithMarkdown("Eso viejo "+ctx.update.message.text.substr("/eso".length+1,ctx.update.message.text.length)+", eso.", Extra.markdown());
+});
+
+bot.command('loanotare', (ctx) => {
+  return ctx.reply("Lo anotare en mi libreta de cosas que me valen monda!");
+});
+
+bot.command('este', (ctx) => {
+  return ctx.replyWithPhoto({ source: fs.readFileSync('./static/este.jpg') });
+});
+
+bot.command('esta', (ctx) => {
+  return ctx.replyWithPhoto({ source: fs.readFileSync('./static/este.jpg') });
+});
+
+bot.command('help', (ctx) => {
+  return ctx.replyWithMarkdown("**/help** - Muestra los comandos disponibles.\n**/interesante** - Muestra mensaje, interesante lo que me cuentas.\n**/eso** - Muestra mensaje, eso viejo.\n**/saxi** - Muestra WeslyFace.\n**/este** - Muestra meme.\n**/esta** - Muestra meme.", Extra.markdown());
 });
 
 

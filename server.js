@@ -143,7 +143,7 @@ bot.command('help', (ctx) => {
 bot.command('titulo', (ctx) => {
   var text= ctx.update.message.text.substr('/titulo'.length+1,ctx.update.message.text.length);
   console.log(text);
-  bot.telegram.setChatTitle(ctx.update.message.chat.id, text).then().error(bot.telegram.sendMessage(ctx.update.message.chat.id, "Error, verifica que el bot este como admin *inbecil*", Extra.markdown()));
+  bot.telegram.setChatTitle(ctx.update.message.chat.id, text).catch(bot.telegram.sendMessage(ctx.update.message.chat.id, "Error, verifica que el bot este como admin *imbecil*", Extra.markdown()));
 });
 
 bot.command('changePhoto', (ctx) => {

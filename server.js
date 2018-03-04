@@ -257,7 +257,7 @@ bot.command('resumen', (ctx) => {
           text="No estamos hablando de una monda *careverga!*.";
         }
         console.log(text);
-        return ctx.replyWithMarkdown(text, Extra.markdown());
+        bot.telegram.sendMessage(ctx.update.message.chat.id, text, Extra.markdown());
       }
     });
   }

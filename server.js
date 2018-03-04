@@ -361,11 +361,11 @@ bot.command('loanotare', (ctx) => {
 });
 
 bot.command('este', (ctx) => {
-  return ctx.replyWithPhoto({ source: fs.createReadStream(('./static/este.jpg') });
+  return ctx.replyWithPhoto({ source: fs.createReadStream('./static/este.jpg') });
 });
 
 bot.command('esta', (ctx) => {
-  return ctx.replyWithPhoto({ source: fs.createReadStream(('./static/este.jpg') });
+  return ctx.replyWithPhoto({ source: fs.createReadStream('./static/este.jpg') });
 });
 
 bot.command('help', (ctx) => {

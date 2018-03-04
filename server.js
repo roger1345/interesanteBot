@@ -349,9 +349,10 @@ var fnInlineAnswer= function(req,res,query_id){
 };
 
 bot.command('interesante', (ctx) => {
-  return ctx.replyWithMarkdown("Que interesante lo que me cuentas **"+ctx.update.message.text.substr('/interesante'.length+1,req.body.message.text.length)+"**, ojala te lo hubiera preguntado.");
+  return ctx.replyWithMarkdown("Que interesante lo que me cuentas **"+ctx.update.message.text.substr('/interesante'.length+1,ctx.update.message.text.length)+"**, ojala te lo hubiera preguntado.");
 });
-bot.on('text', ({ replyWithHTML }) => replyWithHTML('Esto es no un chat para hablar, escribe un comando careverga.'))
+
+
 app.use(bot.webhookCallback('/'))
 
 initDb(function(err){

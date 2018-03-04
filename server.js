@@ -256,9 +256,10 @@ bot.command('resumen', (ctx) => {
         if(count==1){
           text="No estamos hablando de una monda *careverga!*.";
         }
+        console.log(text);
+        return ctx.replyWithMarkdown(text, Extra.markdown());
       }
     });
-    return ctx.replyWithMarkdown(text, Extra.markdown());
   }
 });
 

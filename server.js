@@ -223,7 +223,7 @@ bot.command('help', (ctx) => {
 
 bot.command('titulo', (ctx) => {
   var text= ctx.update.message.text.substr('/titulo'.length+1,ctx.update.message.text.length);
-  ctx.setChatTitle(ctx.update.message.chat.id, );
+  ctx.setChatTitle(ctx.update.message.chat.id, text);
   return ctx.replyWithMarkdown("Titulo cambiado", Extra.markdown());
 });
 

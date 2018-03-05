@@ -229,9 +229,21 @@ bot.on('photo', (ctx) => {
   console.log(ctx.update.message.photo);
   if(changingPhoto){
     //console.log(bot.telegram.getFile(ctx.update.message.photo[0].file_id));
-    fnSendPhoto(ctx, "https://api.telegram.org/file/bot180447956:AAF50f54FuAWNrs077k7iPH6n1ngkLYjYrw/photos/file_11970.jpg");
+    download('https://api.telegram.org/file/bot180447956:AAF50f54FuAWNrs077k7iPH6n1ngkLYjYrw/photos/file_11970.jpg', 'static/file_11970.jpg', function(){
+      console.log('done');
+    });
+    fnSendPhoto(ctx, "./static/file_11970.jpg");
   }
 });
+
+var download = function(uri, filename, callback){
+  request.head(uri, function(err, res, body){
+    console.log('content-type:', res.headers['content-type']);
+    console.log('content-length:', res.headers['content-length']);
+
+    request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+  });
+};
 
 bot.on('inline_query', (ctx) => {
   var result = [

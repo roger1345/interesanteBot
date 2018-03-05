@@ -230,7 +230,8 @@ bot.on('photo', (ctx) => {
   console.log(changingPhoto);
   if(changingPhoto){
     //console.log(bot.telegram.getFile(ctx.update.message.photo[0].file_id));
-    fnSendPhoto(ctx, './static/este.jpg');
+    console.log(bot.telegram.getFileLink(ctx.update.message.photo[0].file_id));
+    fnSendPhoto(ctx, bot.telegram.getFileLink(ctx.update.message.photo[0].file_id));
   }
 });
 

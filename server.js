@@ -229,7 +229,7 @@ bot.on('photo', (ctx) => {
   console.log(ctx.update.message.photo);
   if(changingPhoto){
     //console.log(bot.telegram.getFile(ctx.update.message.photo[0].file_id));
-    bot.telegram.getFileLink(ctx.update.message.photo[1].file_id).then((urlPhoto)=>{
+    bot.telegram.getFileLink(ctx.update.message.photo[2].file_id).then((urlPhoto)=>{
       console.log(urlPhoto);
       download(urlPhoto, 'static/'+path.parse(urlPhoto).base, function(){
         console.log('done');

@@ -227,9 +227,9 @@ bot.command('reset', (ctx) => {
 });
 bot.on('photo', (ctx) => {
   console.log(ctx.update.message.photo);
-  console.log(changingPhoto);
   if(changingPhoto){
     //console.log(bot.telegram.getFile(ctx.update.message.photo[0].file_id));
+    console.log(ctx.update.message.photo[0].file_id);
     console.log(bot.telegram.getFileLink(ctx.update.message.photo[0].file_id));
     fnSendPhoto(ctx, bot.telegram.getFileLink(ctx.update.message.photo[0].file_id));
   }

@@ -237,6 +237,7 @@ bot.on('photo', (ctx) => {
 });
 
 var download = function(uri, filename, callback){
+  var request = require('request');
   request.head(uri, function(err, res, body){
     console.log('content-type:', res.headers['content-type']);
     console.log('content-length:', res.headers['content-length']);

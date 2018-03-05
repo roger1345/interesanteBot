@@ -229,11 +229,11 @@ bot.on('photo', (ctx) => {
   console.log(ctx.update.message.photo);
   if(changingPhoto){
     //console.log(bot.telegram.getFile(ctx.update.message.photo[0].file_id));
-    bot.telegram.getFileLink(ctx.update.message.photo[1].file_id).then((data)=>{
-      console.log(data);
-      download('https://api.telegram.org/file/bot180447956:AAF50f54FuAWNrs077k7iPH6n1ngkLYjYrw/photos/file_11970.jpg', 'static/file_11970.jpg', function(){
+    bot.telegram.getFileLink(ctx.update.message.photo[1].file_id).then((urlPhoto)=>{
+      console.log(urlPhoto);
+      download(urlPhoto, 'static/'+path.parse(urlPhoto).base, function(){
         console.log('done');
-        fnSendPhoto(ctx, "./static/file_11970.jpg");
+        fnSendPhoto(ctx, "./static/"+path.parse(urlPhoto).base);
       });
     });
   }

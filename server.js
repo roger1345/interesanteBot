@@ -212,7 +212,7 @@ bot.on('photo', (ctx) => {
   console.log(changingPhoto);
   if(changingPhoto){
     //console.log(bot.telegram.getFile(ctx.update.message.photo[0].file_id));
-    bot.telegram.setChatPhoto(ctx.update.message.chat.id,fs.readFileSync('./static/este.jpg'));
+    bot.telegram.setChatPhoto(ctx.update.message.chat.id,fs.createReadStream('./static/este.jpg'));
   }
 });
 

@@ -142,13 +142,15 @@ bot.command('help', (ctx) => {
 
 bot.command('titulo', (ctx) => {
   var text= ctx.update.message.text.substr('/titulo'.length+1,ctx.update.message.text.length);
-  bot.telegram.setChatTitle(ctx.update.message.chat.id, text);
+  bot.telegram.setChatTitle(ctx.update.message.chat.id, text).catch((error)=>{
+    bot.telegram.sendMessage(ctx.update.message.chat.id, "Error, verifica que el bot este como admin *imbecil*", Extra.markdown());
+  });
 });
 
 bot.command('changePhoto', (ctx) => {
   console.log(ctx.update)
   changingPhoto=true;
-  return ctx.replyWithMarkdown("Please sent a photo", Extra.markdown());
+  return ctx.replyWithMarkdown("Manda la foto pue, Suedtala!!", Extra.markdown());
 });
 
 bot.command('tema', (ctx) => {
@@ -216,19 +218,9 @@ bot.on('photo', (ctx) => {
 bot.on('inline_query', (ctx) => {
   var result = [
                     {'type':'photo',
-                      'id':'456456',
-                      'photo_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/saxiwesly.jpg',
-                      'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/saxiwesly.jpg'
-                    },
-                    {'type':'photo',
                       'id':'123123',
                       'photo_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/este.jpg',
                       'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/este.jpg'
-                    },
-                    {'type':'photo',
-                      'id':'789789',
-                      'photo_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/callate.jpg',
-                      'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/callate.jpg'
                     },
                     {'type':'photo',
                       'id':'978908',
@@ -246,16 +238,10 @@ bot.on('inline_query', (ctx) => {
                       'thumb_url':'https://bot-secure-interesante-bot.7e14.starter-us-west-2.openshiftapps.com/static/pagaron.gif'
                     }
                   ];
-  console.log(ctx.inlineQuery.id);
-  console.log(result);
   bot.telegram.answerInlineQuery(ctx.inlineQuery.id,result)
 })
 
 app.use(bot.webhookCallback('/'))
-bot.catch((err) => {
-  console.log('Ooops', err)
-  bot.telegram.sendMessage(ctx.update.message.chat.id, "Error, verifica que el bot este como admin *imbecil*", Extra.markdown());
-})
 
 initDb(function(err){
   console.log('Error connecting to Mongo. Message:\n'+err);

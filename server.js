@@ -147,7 +147,7 @@ bot.command('titulo', (ctx) => {
   });
 });
 
-bot.command('changePhoto', (ctx) => {
+bot.command('fotomes', (ctx) => {
   console.log(ctx.update)
   changingPhoto=true;
   return ctx.replyWithMarkdown("Manda la foto pue, Suedtala!!", Extra.markdown());
@@ -228,6 +228,7 @@ bot.command('reset', (ctx) => {
 bot.on('photo', (ctx) => {
   console.log(ctx.update.message.photo);
   if(changingPhoto){
+    changingPhoto=false;
     //console.log(bot.telegram.getFile(ctx.update.message.photo[0].file_id));
     bot.telegram.getFileLink(ctx.update.message.photo[2].file_id).then((urlPhoto)=>{
       console.log(urlPhoto);

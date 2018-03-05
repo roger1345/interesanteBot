@@ -231,8 +231,8 @@ bot.on('photo', (ctx) => {
     //console.log(bot.telegram.getFile(ctx.update.message.photo[0].file_id));
     download('https://api.telegram.org/file/bot180447956:AAF50f54FuAWNrs077k7iPH6n1ngkLYjYrw/photos/file_11970.jpg', 'static/file_11970.jpg', function(){
       console.log('done');
+      fnSendPhoto(ctx, "./static/file_11970.jpg");
     });
-    fnSendPhoto(ctx, "./static/file_11970.jpg");
   }
 });
 

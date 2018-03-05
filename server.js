@@ -117,7 +117,7 @@ app.get('/static/pagaron.gif', function (req, res) {
 });
 
 bot.command('interesante', (ctx) => {
-  return ctx.replyWithMarkdown("Que interesante lo que me cuentas *"+ctx.update.message.text.substr('/interesante'.length+1,ctx.update.message.text.length)+"*, ojala te lo hubiera preguntado.", Extra.markdown());
+  return ctx.replyWithMarkdown("Que interesante lo que me cuentas *"+ctx.ufs.readFileSyncpdate.message.text.substr('/interesante'.length+1,ctx.update.message.text.length)+"*, ojala te lo hubiera preguntado.", Extra.markdown());
 });
 
 bot.command('eso', (ctx) => {
@@ -195,6 +195,24 @@ bot.command('resumen', (ctx) => {
   }
 });
 
+var fnSendPhoto= function(ctx, urlPhoto){
+
+  var request = require('request');
+
+  var formData = {
+    'chat_id': ctx.update.message.chat.id,
+    'photo': fs.createReadStream(urlPhoto)
+  };
+
+  request.post({url:'https://api.telegram.org/bot180447956:AAF50f54FuAWNrs077k7iPH6n1ngkLYjYrw/setChatPhoto', formData: formData}, function(err, httpResponse, body) {
+    if (err) {
+      return console.error('upload failed:', err);
+    }
+    console.log('Upload successful!  Server responded with:', body);
+  });
+
+};
+
 bot.command('reset', (ctx) => {
   if (!db) {
     initDb(function(err){});
@@ -212,7 +230,7 @@ bot.on('photo', (ctx) => {
   console.log(changingPhoto);
   if(changingPhoto){
     //console.log(bot.telegram.getFile(ctx.update.message.photo[0].file_id));
-    bot.telegram.setChatPhoto(ctx.update.message.chat.id,fs.createReadStream('./static/este.jpg'));
+    fnSendPhoto(ctx, './static/este.jpg');
   }
 });
 

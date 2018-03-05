@@ -211,8 +211,8 @@ bot.on('photo', (ctx) => {
   console.log(ctx.update.message.photo);
   console.log(changingPhoto);
   if(changingPhoto){
-    console.log(bot.telegram.getFile(ctx.update.message.photo[0].file_id));
-    //bot.telegram.setChatPhoto(ctx.update.message.chat.id,);
+    //console.log(bot.telegram.getFile(ctx.update.message.photo[0].file_id));
+    bot.telegram.setChatPhoto(ctx.update.message.chat.id,fs.readFileSync('./static/este.jpg'));
   }
 });
 

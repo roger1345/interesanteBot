@@ -128,12 +128,16 @@ bot.command('loanotare', (ctx) => {
   return ctx.reply("Lo anotare en mi libreta de cosas que me valen monda!");
 });
 
-bot.command('este', (ctx) => {
+bot.hears('este', (ctx) => {
   return ctx.replyWithPhoto({ source: fs.createReadStream('./static/este.jpg') });
 });
 
-bot.command('esta', (ctx) => {
+bot.hears('esta', (ctx) => {
   return ctx.replyWithPhoto({ source: fs.createReadStream('./static/este.jpg') });
+});
+
+bot.hashtag('problemasEnElParaiso', (ctx) => {
+  return ctx.reply("Yerda!!!!!");
 });
 
 bot.command('help', (ctx) => {

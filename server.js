@@ -128,7 +128,7 @@ bot.command('loanotare', (ctx) => {
   return ctx.reply("Lo anotare en mi libreta de cosas que me valen monda!");
 });
 
-bot.hears(new RegExp(/(esta|este)/i), (ctx) => {
+bot.hears(new RegExp(/(\besta\b|\beste\b)/i), (ctx) => {
   return ctx.replyWithPhoto({ source: fs.createReadStream('./static/este.jpg') });
 });
 

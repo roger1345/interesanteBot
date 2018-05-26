@@ -128,16 +128,16 @@ bot.command('loanotare', (ctx) => {
   return ctx.reply("Lo anotare en mi libreta de cosas que me valen monda!");
 });
 
-bot.hears('este', (ctx) => {
+bot.hears(new RegExp('\/\b(esta|este)\b'), (ctx) => {
   return ctx.replyWithPhoto({ source: fs.createReadStream('./static/este.jpg') });
 });
 
-bot.hears('esta', (ctx) => {
-  return ctx.replyWithPhoto({ source: fs.createReadStream('./static/este.jpg') });
-});
-
-bot.hashtag('problemasEnElParaiso', (ctx) => {
+bot.hashtag('problemasEnElParaiso','problemasenelparaiso', (ctx) => {
   return ctx.reply("Yerda!!!!!");
+});
+
+bot.hashtag('siganEnEstudio','siganenestudio', (ctx) => {
+  return ctx.reply("Que va cachon!!!!!");
 });
 
 bot.command('help', (ctx) => {

@@ -132,11 +132,11 @@ bot.hears(new RegExp(/(esta|este)/i), (ctx) => {
   return ctx.replyWithPhoto({ source: fs.createReadStream('./static/este.jpg') });
 });
 
-bot.hashtag('problemasEnElParaiso','problemasenelparaiso', (ctx) => {
+bot.hashtag(['problemasEnElParaiso','problemasenelparaiso'], (ctx) => {
   return ctx.reply("Yerda!!!!!");
 });
 
-bot.hashtag('siganEnEstudio','siganenestudio', (ctx) => {
+bot.hashtag(['siganEnEstudio','siganenestudio'], (ctx) => {
   return ctx.reply("Que va cachon!!!!!");
 });
 

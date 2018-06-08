@@ -139,11 +139,11 @@ bot.hears(new RegExp(/\#(\bproblemasenelparaiso\b)/i), (ctx) => {
   return ctx.reply("Yerda!!!!!");
 });
 
-bot.hears(new RegExp(/\#(\siganenestudio\b)/i), (ctx) => {
+bot.hears(new RegExp(/\#(\bsiganenestudio\b)/i), (ctx) => {
   return ctx.reply("Que va cachon!!!!!");
 });
 
-bot.hears(new RegExp(/\#(\nsfw\b)/i), (ctx) => {
+bot.hears(new RegExp(/\#(\bnsfw\b)/i), (ctx) => {
   return ctx.replyWithPhoto({ source: fs.createReadStream('./static/nsfw-3d.png') });
 });
 

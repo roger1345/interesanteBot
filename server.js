@@ -5,7 +5,6 @@ var express = require('express'),
     fs      = require('fs'),
     path    = require('path'),
     http = require('http'),
-    Telegraf = require('telegraf'),
     bodyParser = require('body-parser'),
     Telegraf = require('telegraf');
 
@@ -142,6 +141,10 @@ bot.hears(new RegExp(/\#(\bproblemasenelparaiso\b)/i), (ctx) => {
 
 bot.hears(new RegExp(/\#(\siganenestudio\b)/i), (ctx) => {
   return ctx.reply("Que va cachon!!!!!");
+});
+
+bot.hears(new RegExp(/\#(\nsfw\b)/i), (ctx) => {
+  return ctx.replyWithPhoto({ source: fs.createReadStream('./static/nsfw-3d.png') });
 });
 
 bot.command('help', (ctx) => {

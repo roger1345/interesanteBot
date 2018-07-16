@@ -152,7 +152,11 @@ bot.hears(new RegExp(/\#(\bqrutastyle\b)/i), (ctx) => {
 });
 
 bot.hears(new RegExp(/\#(\bnominada\b)/i), (ctx) => {
-  return ctx.replyWithMarkdown("*domina esta!!!!!*");
+  return ctx.replyWithMarkdown("*nomina esta!!!!!*");
+});
+
+bot.hears(new RegExp(/\#(\bjulio\b)/i), (ctx) => {
+  return ctx.replyWithMarkdown("anda y que *julio*, hptaaa *es caga!!!!!*");
 });
 
 bot.hears(new RegExp(/\#(\bnsfw\b)/i), (ctx) => {

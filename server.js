@@ -151,6 +151,10 @@ bot.hears(new RegExp(/\#(\bqrutastyle\b)/i), (ctx) => {
   return ctx.replyWithMarkdown("A *@Carlos.Henriquez* le gusta esto");
 });
 
+bot.hears(new RegExp(/\#(\bnominada\b)/i), (ctx) => {
+  return ctx.replyWithMarkdown("*domina esta!!!!!*");
+});
+
 bot.hears(new RegExp(/\#(\bnsfw\b)/i), (ctx) => {
   return ctx.replyWithPhoto({ source: fs.createReadStream('./static/nsfw-3d.png') });
 });

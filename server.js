@@ -155,6 +155,18 @@ bot.hears(new RegExp(/\#(\bnominada\b)/i), (ctx) => {
   return ctx.replyWithMarkdown("*nomina esta!!!!!*");
 });
 
+bot.hears(new RegExp(/\#(\bevidencia\b)/i), (ctx) => {
+  return ctx.replyWithMarkdown("no eres casca!!");
+});
+
+bot.hears(new RegExp(/\#(\bventasDptoDeMkditas\b)/i), (ctx) => {
+  return ctx.replyWithMarkdown("*metetelo por el culo!*");
+});
+
+bot.hears(new RegExp(/\#(\bdonacionesDptoDeMkditas\b)/i), (ctx) => {
+  return ctx.replyWithMarkdown("*metetelo por el culo!*");
+});
+
 bot.hears(new RegExp(/\#(\bjulio\b)/i), (ctx) => {
   return ctx.replyWithMarkdown("anda y que *julio*, hptaaa *es caga!!!!!*");
 });
